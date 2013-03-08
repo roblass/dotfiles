@@ -1,0 +1,82 @@
+#####
+# Rob Lass <firstname dot lastname at gmail>
+#
+# i learned most of this from the manual:
+# https://www.gnu.org/software/screen/manual/screen.html
+
+
+#####
+#
+# General Settings
+#
+
+# use visual bell instead of audio bell
+vbell on
+
+hardstatus alwayslastline "||%w||"
+shelltitle ''
+
+# turn on status bar notifications when there is activity in another window
+defmonitor on
+
+# ignore case in searches
+ignorecase on
+
+# This is how one can set a reattach password.  I turned it off, since I lock
+# my x session.
+# password foobar
+
+# detach on hangup
+autodetach on
+
+# don't display the annoying copyright page
+startup_message off
+
+# make the shell in every window a login shell
+shell -$SHELL
+
+#i want to scroll back a lot.  any longer than this, and screen takes too long
+#to start.
+defscrollback 999999
+
+# need this to make the vim buffer disappear from your screen when you exit
+# vim
+altscreen on
+
+################
+#
+# keybindings
+#
+
+#change the kill command to require a capital K (harder to do on accident)
+bind k
+bind ^k
+bind 'K' kill
+
+#####
+#not sure where i got these xterm commands, but they seem to be widely copied
+#on the internet.
+
+#xterm understands both im/ic and doesn't have a status line.
+#Note: Do not specify im and ic in the real termcap/info file as
+#some programs (e.g. vi) will not work anymore.
+termcap  xterm hs@:cs=\E[%i%d;%dr:im=\E[4h:ei=\E[4l
+terminfo xterm hs@:cs=\E[%i%p1%d;%p2%dr:im=\E[4h:ei=\E[4l
+
+#80/132 column switching must be enabled for ^AW to work
+#change init sequence to not switch width
+termcapinfo  xterm Z0=\E[?3h:Z1=\E[?3l:is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l
+
+# Make the output buffer large for (fast) xterms.
+termcapinfo xterm* OL=10000
+
+# tell screen that xterm can switch to dark background and has function
+# keys.
+termcapinfo xterm 'VR=\E[?5h:VN=\E[?5l'
+termcapinfo xterm 'k1=\E[11~:k2=\E[12~:k3=\E[13~:k4=\E[14~'
+termcapinfo xterm 'kh=\E[1~:kI=\E[2~:kD=\E[3~:kH=\E[4~:kP=\E[H:kN=\E[6~'
+
+# special xterm hardstatus: use the window title.
+termcapinfo xterm 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+
+
