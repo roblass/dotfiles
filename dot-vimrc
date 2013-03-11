@@ -1,0 +1,215 @@
+" Rob Lass
+" <firstname dot lastname at gmail>
+"
+" I've collected this group of settings over the years.  Some of these
+" commands have been taken from others, but I don't remember which ones, or
+" where they came from.
+
+"""""""""""
+" General Settings
+"
+"""""""""""
+
+" Use Vim settings, rather then Vi settings.  This must be first, because it 
+" changes other options as a side effect.
+set nocompatible
+
+" replace tabs with spaces
+retab 4
+
+" tabs are 4 spaces
+set tabstop=4
+
+" replace a pressed tab key with four spaces
+set expandtab
+
+" number of spaces for each level of autoindent
+set shiftwidth=4
+
+" this makes it so that you can backspace over a tab with one keystroke
+" (instead of having to delete each space individually).
+set softtabstop=4
+
+" break lines longer than this 
+set textwidth=78
+
+" ask vim to try using colors that look good on a dark background
+set bg=dark
+
+" ignore case when searching.  use \C in the search string to do a
+" case-sensitive search
+set ignorecase
+
+" print the line number on each line (i have a hot key below to toggle this)
+set number
+
+" turn on filetype events (used below)
+filetype on
+
+" show matching parenthesis (lisp)
+set showmatch
+
+" show matching parenthesis for 0.5 seconds
+set matchtime=5
+
+" tab complete menu items
+set wildmenu
+
+" do i use this?
+set wcm=<C-Z>
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+" when a new line is entered, use indent level from previous line
+set autoindent
+
+" this automatically indents things.  sometimes causes problems in non-c like
+" files (LaTeX, python, etc)
+set smartindent
+
+" fixes the aforementioned problem for TeX files
+autocmd FileType tex set nosmartindent
+
+" yeah
+if has("vms")
+  set nobackup      " do not keep a backup file, use versions instead
+else
+  set backup        " keep a backup file
+endif
+
+" keep 500 lines of command line history
+set history=500		
+
+" show the cursor position all the time
+set ruler
+
+" display incomplete commands
+set showcmd
+
+" do incremental searching
+set incsearch
+
+" paren matching
+set sm
+
+"""""""""""
+" Remapping keys
+"
+"""""""""""
+
+" Don't use Ex mode, use Q for formatting
+map Q gq
+
+" Make p in Visual mode replace the selected text with the "" register.
+vnoremap p <Esc>:let current_reg = @"<CR>gvs<C-R>=current_reg<CR><Esc>
+
+" bring up the help menu
+nnoremap <F1> :help<Space>
+
+" toggle rid of line numbers
+nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
+
+" delete the current buffer
+noremap <F3> :bd<CR>
+
+" move the focus (but not the cursor) up or down
+noremap <F5> 2<C-Y>
+noremap <F6> 2<C-E>
+
+" insert a comment
+" TODO:  make this different for different file types?
+map <F7> 0i%<Esc>j
+
+" unhighlight last search results with \\
+noremap <Leader><Leader> :set hlsearch!<CR>
+
+" go to the location mapped (not just the line)
+nnoremap ' `
+
+" space inserts a single character (without entering insert mode)
+:map <space> i$<esc>r 
+
+
+"""""""""""
+" Appearance
+"
+"""""""""""
+" Switch syntax highlighting on, when the terminal has colors
+" Also switch on highlighting the last used search pattern.
+if &t_Co > 2 
+  syntax on
+  set hlsearch
+endif
+
+
+" When editing a file, always jump to the last known cursor position.
+" Don't do it when the position is invalid or when inside an event handler
+autocmd BufReadPost *
+  \ if line("'\"") > 0 && line("'\"") <= line("$") |
+  \   exe "normal g`\"" |
+  \ endif
+
+" Put vim(filename) in the screen session
+function! Update_window_title ()
+       let &titlestring = "vim(" . expand("%:t") . ")"
+       if &term == "screen"
+               set t_ts=k
+               set t_fs=\
+       endif
+       if &term == "screen" || &term == "xterm"
+               set title
+       endif
+endfunction
+
+if !exists("autocommands_loaded")
+       let autocommands_loaded = 1
+       autocmd WinEnter * :call Update_window_title ()
+       autocmd BufWinEnter * :call Update_window_title ()
+endif
+
+"""""""""""
+" Plugin Commands
+"
+"""""""""""
+"minibuffer
+let g:miniBufExplMapWindowNavVim = 1
+let g:miniBufExplMapWindowNavArrows = 1
+let g:miniBufExplMapCTabSwitchBufs = 1
+let g:miniBufExplModSelTarget = 1 
+
+"""""""""""
+" File-Specific Editing
+"
+"""""""""""
+" python (NOT WORKING)
+filetype plugin indent on
+autocmd FileType python set complete+=k~/.vim/syntax/python.vim isk+=.,(
+
+" use autocompletion
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+
+"""""""""""
+" Spelling
+"
+"""""""""""
+" i am american
+set spelllang=en_us
+
+" i might use unicode
+set spellfile=~/.vim/spell.en.utf-8.add
+
+autocmd BufNewFile,BufRead /tmp/vim*  set ai et tw=68 spell
+
+" check spelling by default
+set spell
+
+" color problem words
+highlight clear SpellBad
+highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
+highlight clear SpellCap
+highlight SpellCap term=underline cterm=underline
+highlight clear SpellRare
+highlight SpellRare term=underline cterm=underline
+highlight clear SpellLocal
+highlight SpellLocal term=underline cterm=underline
