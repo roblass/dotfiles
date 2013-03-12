@@ -1,0 +1,56 @@
+#!/bin/sh
+#
+# Rob Lass
+# <firstname dot lastname at gmail>
+#
+# ~/.xinitrc
+#
+# Executed by startx.  I actually aliased startx to '(startx &); disown; exit'
+# so that someone can't "unlock" my screen locked computer by switching to the
+# virtual terminal and hitting control C.
+
+# desktop effects
+xcompmgr -c -t-5 -l-5 -r4.2 -o.55 &
+
+# i use xscreensaver to lock my screen 
+xscreensaver -nosplash &
+
+# start openbox and save the pid
+exec ck-launch-session /usr/bin/openbox-session  & wmpid=$!
+
+# hack to prevent feh from being called before openbox has finished starting
+sleep 5
+
+# set my background
+feh --bg-fill /home/urlass/Pictures/backgrounds/bg.jpg
+
+# panel
+tint2 &
+
+#adjust mouse speed
+xset m 3/2 0
+
+# hack to prevent obmixer from being called before tint2 is finished starting
+sleep 3
+
+# sound level adjustment tool
+obmixer &
+
+# disables the touchpad on my laptop (i never use it, and always hit it by
+# accident while typing)
+synclient CoastingSpeed=0
+
+# the one true keymap
+setxkbmap dvorak
+
+# swap capslock and control.  file looks like this:
+# remove Lock = Caps_Lock
+# remove Control = Control_L
+# keysym Control_L = Caps_Lock
+# keysym Caps_Lock = Control_L
+# add Lock = Caps_Lock
+# add Control = Control_L
+xmodmap ~/swapper.xmodmap
+
+# wait for openbox to end
+wait $wmpid
