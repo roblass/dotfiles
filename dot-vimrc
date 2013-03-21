@@ -184,7 +184,6 @@ let g:miniBufExplModSelTarget = 1
 """""""""""
 " python (NOT WORKING)
 filetype plugin indent on
-autocmd FileType python set complete+=k~/.vim/syntax/python.vim isk+=.,(
 
 " use autocompletion
 autocmd FileType python set omnifunc=pythoncomplete#Complete
