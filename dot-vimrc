@@ -3,7 +3,7 @@
 "
 " I've collected this group of settings over the years.  Some of these
 " commands have been taken from others, but I don't remember which ones, or
-" where they came from.
+" who they came from.
 
 """""""""""
 " General Settings
@@ -182,11 +182,11 @@ let g:miniBufExplModSelTarget = 1
 " File-Specific Editing
 "
 """""""""""
-" python (NOT WORKING)
-filetype plugin indent on
-
 " use autocompletion
 autocmd FileType python set omnifunc=pythoncomplete#Complete
+
+" i prefer the 100 character pep8 variant
+autocmd FileType python set textwidth=99
 
 """""""""""
 " Spelling
