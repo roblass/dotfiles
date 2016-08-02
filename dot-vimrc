@@ -36,6 +36,9 @@ set textwidth=78
 " ask vim to try using colors that look good on a dark background
 set bg=dark
 
+" use the solarized colorscheme, available here:  https://goo.gl/NyAJoR
+colorscheme solarized
+
 " ignore case when searching.  use \C in the search string to do a
 " case-sensitive search
 set ignorecase
@@ -186,7 +189,10 @@ let g:miniBufExplModSelTarget = 1
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 
 " i prefer the 100 character pep8 variant
+" create a red line at 100 characters in python files
 autocmd FileType python set textwidth=99
+highlight ColorColumn ctermbg=1
+autocmd FileType python set colorcolumn=100
 
 """""""""""
 " Spelling
@@ -212,3 +218,9 @@ highlight clear SpellRare
 highlight SpellRare term=underline cterm=underline
 highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
+
+"turn on rainbow parens
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
