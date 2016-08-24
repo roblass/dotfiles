@@ -108,7 +108,7 @@ map Q gq
 vnoremap p <Esc>:let current_reg = @"<CR>gvs<C-R>=current_reg<CR><Esc>
 
 " bring up the help menu
-nnoremap <F1> :help<Space>
+nnoremap <F1> :set relativenumber!<CR>
 
 " toggle rid of line numbers
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
