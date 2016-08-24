@@ -102,7 +102,7 @@ set sm
 """""""""""
 
 " Don't use Ex mode, use Q for formatting
-map Q gq
+noremap Q gq
 
 " Make p in Visual mode replace the selected text with the "" register.
 vnoremap p <Esc>:let current_reg = @"<CR>gvs<C-R>=current_reg<CR><Esc>
@@ -120,10 +120,6 @@ noremap <F3> :bd<CR>
 noremap <F5> 2<C-Y>
 noremap <F6> 2<C-E>
 
-" insert a comment
-" TODO:  make this different for different file types?
-map <F7> 0i%<Esc>j
-
 " unhighlight last search results with \\
 noremap <Leader><Leader> :set hlsearch!<CR>
 
@@ -131,7 +127,7 @@ noremap <Leader><Leader> :set hlsearch!<CR>
 nnoremap ' `
 
 " space inserts a single character (without entering insert mode)
-:map <space> i$<esc>r 
+noremap <space> i$<esc>r 
 
 
 """""""""""
@@ -193,6 +189,10 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType python set textwidth=99
 highlight ColorColumn ctermbg=1
 autocmd FileType python set colorcolumn=100
+
+" i also like to see visible whitespace characters in python code
+autocmd FileType python set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<
+autocmd FileType python set list
 
 """""""""""
 " Spelling
