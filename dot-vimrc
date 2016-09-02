@@ -129,6 +129,16 @@ nnoremap ' `
 " space inserts a single character (without entering insert mode)
 noremap <space> i$<esc>r 
 
+" easily edit and re-source this file
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
+" swap single and double quotes in visually selected text.  breaks if you have
+" the å character in the selected block.
+vnoremap <leader>" :s/\"/å/g<cr>gv:s/'/\"/g<cr>gv:s/å/'/g<cr>
+
+" exit insert mode with jk
+inoremap jk <esc> 
 
 """""""""""
 " Appearance
@@ -194,10 +204,10 @@ autocmd FileType python set colorcolumn=100
 autocmd FileType python set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<
 autocmd FileType python set list
 
-"""""""""""
+"""""""""""""""
 " Spelling
-"
-"""""""""""
+" & Formatting
+"""""""""""""""
 " i am american
 set spelllang=en_us
 
