@@ -6,6 +6,31 @@
 " who they came from.
 
 """""""""""
+" Vundle comes first
+"""""""""""
+set nocompatible              " required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" add all your plugins here (note older versions of Vundle
+" used Bundle instead of Plugin)
+
+" ...
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+"""""""""""
 " General Settings
 "
 """""""""""
@@ -36,8 +61,8 @@ set textwidth=78
 " ask vim to try using colors that look good on a dark background
 set bg=dark
 
-" use the solarized colorscheme, available here:  https://goo.gl/NyAJoR
-colorscheme solarized
+" use the default colorscheme
+colorscheme delek
 
 " ignore case when searching.  use \C in the search string to do a
 " case-sensitive search
@@ -48,6 +73,9 @@ set number
 
 " turn on filetype events (used below)
 filetype on
+
+" need this to load pyflake when i open a python file
+" filetype plugin on
 
 " show matching parenthesis (lisp)
 set showmatch
@@ -80,6 +108,7 @@ if has("vms")
 else
   set backup        " keep a backup file
 endif
+set backupdir=/tmp
 
 " keep 500 lines of command line history
 set history=500		
@@ -234,3 +263,19 @@ au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+
+execute pathogen#infect()
+
+" syntastic stuff
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_flake8_args='--ignore=E501'
+
+" allow copying to system clipboard on osx
+set clipboard=unnamed
