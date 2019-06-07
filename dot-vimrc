@@ -8,7 +8,6 @@
 """""""""""
 " Vundle comes first
 """""""""""
-set nocompatible              " required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
@@ -58,9 +57,6 @@ set softtabstop=4
 " break lines longer than this 
 set textwidth=78
 
-" ask vim to try using colors that look good on a dark background
-set bg=dark
-
 " use the default colorscheme
 colorscheme delek
 
@@ -83,17 +79,8 @@ set showmatch
 " show matching parenthesis for 0.5 seconds
 set matchtime=5
 
-" tab complete menu items
-set wildmenu
-
 " do i use this?
 set wcm=<C-Z>
-
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-
-" when a new line is entered, use indent level from previous line
-set autoindent
 
 " this automatically indents things.  sometimes causes problems in non-c like
 " files (LaTeX, python, etc)
@@ -102,25 +89,7 @@ set smartindent
 " fixes the aforementioned problem for TeX files
 autocmd FileType tex set nosmartindent
 
-" yeah
-if has("vms")
-  set nobackup      " do not keep a backup file, use versions instead
-else
-  set backup        " keep a backup file
-endif
 set backupdir=/tmp
-
-" keep 500 lines of command line history
-set history=500		
-
-" show the cursor position all the time
-set ruler
-
-" display incomplete commands
-set showcmd
-
-" do incremental searching
-set incsearch
 
 " paren matching
 set sm
@@ -173,14 +142,6 @@ inoremap jk <esc>
 " Appearance
 "
 """""""""""
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 
-  syntax on
-  set hlsearch
-endif
-
-
 " When editing a file, always jump to the last known cursor position.
 " Don't do it when the position is invalid or when inside an event handler
 autocmd BufReadPost *
