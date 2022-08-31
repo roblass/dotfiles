@@ -61,8 +61,9 @@ set textwidth=78
 " ask vim to try using colors that look good on a dark background
 set bg=dark
 
-" use the default colorscheme
-colorscheme delek
+" i like this colorscheme, nice contrast when i'm facing the window in my
+" office with lots of sun coming in
+colorscheme habamax
 
 " ignore case when searching.  use \C in the search string to do a
 " case-sensitive search
